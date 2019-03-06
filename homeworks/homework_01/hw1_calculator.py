@@ -6,7 +6,7 @@ def calculator(x, y, operator):
     try:
         float(x)
         float(y)
-	str(operator)
+        str(operator)
     except ValueError:
         return None
     if y == 0 and operator == "divide":
