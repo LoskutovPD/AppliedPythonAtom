@@ -16,6 +16,8 @@ def invert(dct, key, data):
 
 def invert_dict(source_dict):
     res = {}
+    if len(source_dict) == 0:
+	return None
     for x in source_dict.keys():
         invert(res, x, source_dict.get(x))
     return res

@@ -3,6 +3,12 @@
 
 
 def calculator(x, y, operator):
+    try:
+        float(x)
+        float(y)
+	str(operator)
+    except ValueError:
+        return None
     if y == 0 and operator == "divide":
         return None
     if operator == "divide":
