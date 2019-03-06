@@ -7,7 +7,7 @@ def calculator(x, y, operator):
         float(x)
         float(y)
         str(operator)
-    except ValueError:
+    except ValueError, TypeError:
         return None
     if y == 0 and operator == "divide":
         return None
