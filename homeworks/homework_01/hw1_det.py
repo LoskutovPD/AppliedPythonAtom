@@ -31,8 +31,8 @@ def deter(tens):
     exp = -1 if tmp % 2 != 0 else 1
     print('tens - ', tens, tmp)
     b = tens[1:]
-    b = [[b[g][k] for k in range(len(b[g])) \
-    if k != tmp] for g in range(len(b))]
+    b = [[b[g][k] for k in range(len(b[g]))
+        if k != tmp] for g in range(len(b))]
     return exp*det*deter(b)
 
 

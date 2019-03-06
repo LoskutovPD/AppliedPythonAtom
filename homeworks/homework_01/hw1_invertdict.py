@@ -11,7 +11,7 @@ def invert(dct, key, data):
             dct.get(data).append(key)
         elif dct.get(data) is None:
             dct[data] = key
-        else: 
+        else:
             dct[data] = [dct.get(data), key]
 
 
