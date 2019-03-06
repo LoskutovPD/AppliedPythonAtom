@@ -11,6 +11,8 @@ def check(mas):
 
 
 def deter(tens):
+    if len(tens) == 1:
+        return tens[0][0]
     if len(tens) == 2:
         return tens[0][0] * tens[1][1] - tens[1][0] * tens[0][1]
     tmp = -1
@@ -29,8 +31,8 @@ def deter(tens):
             tens[j][i] -= x*tens[j][tmp]
     exp = -1 if tmp % 2 != 0 else 1
     b = tens[1:]
-    b = [[b[g][k] for k in range(len(b[g]))
-        if k != tmp] for g in range(len(b))]
+    b = \
+    [[b[g][k] for k in range(len(b[g])) if k != tmp] for g in range(len(b))]
     return exp*det*deter(b)
 
 
