@@ -16,7 +16,5 @@ def is_bracket_correct(input_string):
         if x2 != -1:
             input_string = input_string[:x2] + input_string[x2+2:]
         if x3 != -1:
-            input_string = input_string[:x3] + input_string[x3+2:] 
+            input_string = input_string[:x3] + input_string[x3+2:]
     return True
-        
-
