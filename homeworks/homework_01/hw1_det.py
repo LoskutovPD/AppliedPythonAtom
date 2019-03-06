@@ -13,7 +13,7 @@ def check(mas):
 def deter(tens):
     print(tens)
     if len(tens) == 2:
-        return tens[0][0]* tens[1][1] - tens[1][0]* tens[0][1]
+        return tens[0][0] * tens[1][1] - tens[1][0] * tens[0][1]
     tmp = -1
     for i in range(len(tens)):
         if tens[0][i] != 0:
@@ -28,17 +28,16 @@ def deter(tens):
         x = tens[0][i]/tens[0][tmp]
         for j in range(len(tens)):
             tens[j][i] -= x*tens[j][tmp]
-    exp = -1 if tmp%2 != 0 else 1
-    print('tens - ' , tens, tmp)
-    b =  tens[1:]
-    print('b-',b)
-    b = [[b[g][k] for k in range(len(b[g])) if k != tmp] for g in range(len(b))]
-    print('b-',b)
+    exp = -1 if tmp % 2 != 0 else 1
+    print('tens - ', tens, tmp)
+    b = tens[1:]
+    b = [[b[g][k] for k in range(len(b[g])) \
+    if k != tmp] for g in range(len(b))]
     return exp*det*deter(b)
 
 
 def calculate_determinant(list_of_lists):
     tmp = check(list_of_lists)
-    if tmp == None:
+    if tmp is None:
         return None
     return deter(list_of_lists)

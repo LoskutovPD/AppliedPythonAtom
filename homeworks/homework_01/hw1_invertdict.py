@@ -9,10 +9,11 @@ def invert(dct, key, data):
     else:
         if isinstance(dct.get(data), (tuple, list, set)):
             dct.get(data).append(key)
-        elif  dct.get(data) == None:
+        elif dct.get(data) is None:
             dct[data] = key
-        else: dct[data] = [dct.get(data),key ]
-        
+        else: 
+            dct[data] = [dct.get(data), key]
+
 
 def invert_dict(source_dict):
     res = {}
@@ -21,4 +22,3 @@ def invert_dict(source_dict):
     for x in source_dict.keys():
         invert(res, x, source_dict.get(x))
     return res
-    
