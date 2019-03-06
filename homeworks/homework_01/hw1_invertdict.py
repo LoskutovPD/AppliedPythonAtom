@@ -1,12 +1,22 @@
-#!/usr/bin/env python
+﻿#!/usr/bin/env python
 # coding: utf-8
 
 
+def invert(dct, key, data):
+    if isinstance(data, (list, tuple, set)):
+        for x in data:
+            invert(dct, key, x)
+    else:
+        if isinstance(dct.get(data), (tuple, list, set)):
+            dct.get(data).append(key)
+        elif  dct.get(data) == None:
+            dct[data] = key
+        else: dct[data] = [dct.get(data),key ]
+        
+
 def invert_dict(source_dict):
-    '''
-    Функция которая разворачивает словарь, т.е.
-    каждому значению ставит в соответствие ключ.
-    :param source_dict: dict
-    :return: new_dict: dict
-    '''
-    raise NotImplementedError
+    res = {}
+    for x in source_dict.keys():
+        invert(res, x, source_dict.get(x))
+    return res
+    
