@@ -15,24 +15,23 @@ def deter(tens):
         return tens[0][0]
     if len(tens) == 2:
         return tens[0][0] * tens[1][1] - tens[1][0] * tens[0][1]
-    tmp = -1
+    tm = -1
     for i in range(len(tens)):
         if tens[0][i] != 0:
-            tmp = i
+            tm = i
             break
-    if tmp == -1:
+    if tm == -1:
         return 0
-    det = tens[0][tmp]
+    det = tens[0][tm]
     for i in range(1, len(tens)):
-        if i == tmp:
+        if i == tm:
             continue
-        x = tens[0][i]/tens[0][tmp]
+        x = tens[0][i]/tens[0][tm]
         for j in range(len(tens)):
-            tens[j][i] -= x*tens[j][tmp]
-    exp = -1 if tmp % 2 != 0 else 1
+            tens[j][i] -= x*tens[j][tm]
+    exp = -1 if tm % 2 != 0 else 1
     b = tens[1:]
-    b = \
-    [[b[g][k] for k in range(len(b[g])) if k != tmp] for g in range(len(b))]
+    b = [[b[g][k] for k in range(len(b[g])) if k != tm] for g in range(len(b))]
     return exp*det*deter(b)
 
 
