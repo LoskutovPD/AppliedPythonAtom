@@ -5,7 +5,7 @@
 def advanced_calculator(input_string):
     if len(input_string) == 0:
         return None
-    data_num = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 
+    data_num = ['1', '2', '3', '4', '5', '6', '7', '8', '9',
                 '0', '.', '+', '-', '*', '/', '(', ')', ' ', '\t']
     for x in input_string:
         if x not in data_num:
@@ -21,7 +21,7 @@ def advanced_calculator(input_string):
     temp = " ".join(temp.split())
     if "* *" in temp or "/ /" in temp or "/ *" in temp \
         or "* /" in temp or "+ *" in temp or "- *" in temp \
-        or "+ /" in temp or "- /" in temp or "( )" in temp:
+            or "+ /" in temp or "- /" in temp or "( )" in temp:
         return None
     try:
         return eval(temp)
