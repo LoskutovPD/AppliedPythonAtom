@@ -3,14 +3,17 @@ class VKPoster:
     def __init__(self):
         self.users, self.posts = {}, {}
 
-    def invert_dict(source_dict):
+    def invert_dict(self, source_dict):
         res = {}
         for x in source_dict.keys():
             if res.get(source_dict.get(x)['readers']) is None:
                 res[source_dict.get(x)['readers']] = x
+            elif isinstance(res.get(source_dict.get(x)['readers']), list):
+                res[source_dict.get(x)['readers']] += [x]
             else:
-                res[source_dict.get(x)['readers']] = \
+                 res[source_dict.get(x)['readers']] = \
                     [res.get(source_dict.get(x)['readers']), x]
+
         return res
 
     def user_posted_post(self, user_id: int, post_id: int):
@@ -18,14 +21,16 @@ class VKPoster:
             self.users[user_id] = {'publicated': [post_id], 'follow': []}
         else:
             self.users[user_id]['publicated'].append(post_id)
-        self.posts[post_id] = {'author': user_id, 'readers': 0}
+        self.posts[post_id] = {'author': user_id, 'readers': 0, 'people': []}
 
     def user_read_post(self, user_id: int, post_id: int):
-        if user_id not in self.posts[post_id]['readers']:
+        if user_id not in self.posts[post_id]['people']:
             if post_id not in self.posts:
-                self.posts[post_id] = {'author': -1, 'readers': 1}
+                self.posts[post_id] = {'author': -1, 'readers': 1,
+                                       'people': [user_id]}
             else:
                 self.posts[post_id]['readers'] += 1
+                self.posts[post_id]['people'].append(user_id)
 
     def user_follow_for(self, follower_user_id: int, followee_user_id: int):
         if follower_user_id in self.users:
@@ -47,18 +52,21 @@ class VKPoster:
     def get_most_popular_posts(self, k: int) -> list:
         result, cur = [], k
         temp_posts = self.invert_dict(self.posts)
+        print(temp_posts)
         second_tmp = [(j, temp_posts[j]) for j in [i for i in
                                                    temp_posts.keys()][::-1]]
         second_tmp.sort(reverse=True)
+        print(second_tmp)
         for tmp in second_tmp:
-            if isinstance(tmp, list):
-                result += tmp.sort()[:cur]
+            if isinstance(tmp[1], list):
+                tmp[1].sort()
+                result += tmp[1][:cur]
                 if len(result) == k:
                     return result
                 else:
-                    cur -= len(tmp)
+                    cur -= len(tmp[1])
             else:
-                result.append(tmp)
+                result.append(tmp[1])
                 if len(result) == k:
                     return result
                 else:
