@@ -40,8 +40,9 @@ class VKPoster:
                                             'follow': [followee_user_id]}
 
     def get_recent_posts(self, user_id: int, k: int) -> list:
-        i, return_list = 0, []
-        for post in [i for i in self.posts.keys()][::-1]:
+        i, return_list, tmp_list = 0, [], [i for i in self.posts.keys()]
+        tmp_list.sort(reverse = True)
+        for post in tmp_list:
             if i >= k:
                 return_list.sort(reverse=True)
                 return return_list
