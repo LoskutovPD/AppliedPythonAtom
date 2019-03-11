@@ -38,7 +38,8 @@ class VKPoster:
         i, return_list = 0, []
         for post in [i for i in self.posts.keys()][::-1]:
             if i >= k:
-                return return_list.sort(reverse=True)
+                return_list.sort(reverse=True)
+                return return_list
             if self.posts[post]['author'] in self.users[user_id]['follow']:
                 return_list.append(post)
                 i += 1
