@@ -60,7 +60,7 @@ class VKPoster:
         print(second_tmp)
         for tmp in second_tmp:
             if isinstance(tmp[1], list):
-                tmp[1].sort()
+                tmp[1].sort(reverse=True)
                 result += tmp[1][:cur]
                 if len(result) == k:
                     return result
