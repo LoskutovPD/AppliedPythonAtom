@@ -49,6 +49,7 @@ class VKPoster:
             if self.posts[post]['author'] in self.users[user_id]['follow']:
                 return_list.append(post)
                 i += 1
+        return tmp_list
 
     def get_most_popular_posts(self, k: int) -> list:
         result, cur = [], k
@@ -72,3 +73,4 @@ class VKPoster:
                     return result
                 else:
                     cur -= 1
+        return result
