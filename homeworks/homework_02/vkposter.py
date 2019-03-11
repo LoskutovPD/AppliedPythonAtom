@@ -11,7 +11,7 @@ class VKPoster:
             elif isinstance(res.get(source_dict.get(x)['readers']), list):
                 res[source_dict.get(x)['readers']] += [x]
             else:
-                 res[source_dict.get(x)['readers']] = \
+                res[source_dict.get(x)['readers']] = \
                     [res.get(source_dict.get(x)['readers']), x]
 
         return res
@@ -24,11 +24,11 @@ class VKPoster:
         self.posts[post_id] = {'author': user_id, 'readers': 0, 'people': []}
 
     def user_read_post(self, user_id: int, post_id: int):
-        if user_id not in self.posts[post_id]['people']:
-            if post_id not in self.posts:
-                self.posts[post_id] = {'author': -1, 'readers': 1,
-                                       'people': [user_id]}
-            else:
+        if post_id not in self.posts:
+            self.posts[post_id] = {'author': -1, 'readers': 1,
+                                   'people': [user_id]}
+        else:
+            if user_id not in self.posts[post_id]['people']:
                 self.posts[post_id]['readers'] += 1
                 self.posts[post_id]['people'].append(user_id)
 
@@ -41,7 +41,7 @@ class VKPoster:
 
     def get_recent_posts(self, user_id: int, k: int) -> list:
         i, return_list, tmp_list = 0, [], [i for i in self.posts.keys()]
-        tmp_list.sort(reverse = True)
+        tmp_list.sort(reverse=True)
         for post in tmp_list:
             if i >= k:
                 return_list.sort(reverse=True)
