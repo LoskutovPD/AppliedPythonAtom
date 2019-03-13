@@ -4,7 +4,6 @@ from dummy_package import print_table as prt
 
 if __name__ == '__main__':
     filename = sys.argv[1]
-    
     # Ваш код
 
 
