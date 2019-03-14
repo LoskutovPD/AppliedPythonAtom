@@ -7,7 +7,7 @@ from .heap import MaxHeap
 class UpdateMaxHeap(MaxHeap):
     def __init__(self, array):
         super(UpdateMaxHeap, self).__init__(array)
-    
+
     def extract_maximum(self):
         if self.heap_size == 0:
             return None
@@ -20,7 +20,7 @@ class UpdateMaxHeap(MaxHeap):
             self.array[0] = self.array[0][:-1]
             self._heapify(0)
         return maximum
-    
+
     def _heapify(self, index):
         largest = index
         if 2 * index + 1 <= self.heap_size - 1:
@@ -36,7 +36,7 @@ class UpdateMaxHeap(MaxHeap):
 
 
 class FastSortedListMerger:
-    
+
     @staticmethod
     def merge_first_k(list_of_lists, k):
         heap = UpdateMaxHeap(list_of_lists)
