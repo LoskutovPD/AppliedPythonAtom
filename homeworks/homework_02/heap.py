@@ -4,17 +4,17 @@ import copy
 
 
 class Heap(object):
-    
+
     def __init__(self, array):
         self.array = copy.deepcopy(array)
         self.heap_size = 0
         self.build_heap()
-    
+
     def add(self, elem_with_priority):
         self.heap_size += 1
         self.array.append((-2147483658, -2147483658))
         self._increase_key(self.heap_size - 1, elem_with_priority)
-    
+
     def _increase_key(self, index, key):
         if key >= self.array[index]:
             self.array[index] = key
@@ -22,11 +22,11 @@ class Heap(object):
                 self.array[index], self.array[index // 2] = \
                     self.array[index // 2], self.array[index]
                 index //= 2
-    
+
     def build_heap(self):
         self.heap_size = len(self.array)
         [self._heapify(i) for i in range(len(self.array) - 1, -1, -1)]
-    
+
     def _heapify(self, index):
         largest = index
         if 2 * index + 1 <= self.heap_size - 1:
@@ -39,7 +39,7 @@ class Heap(object):
             self.array[index], self.array[largest] = \
                 self.array[largest], self.array[index]
             self._heapify(largest)
-    
+
     def _heap_sort(self):
         self.build_heap()
         for i in range(len(self.array) - 1, -1, -1):
@@ -49,10 +49,10 @@ class Heap(object):
 
 
 class MaxHeap(Heap):
-    
+
     def __init__(self, array):
         super(MaxHeap, self).__init__(array)
-    
+
     def extract_maximum(self):
         if self.heap_size == 0:
             return None
