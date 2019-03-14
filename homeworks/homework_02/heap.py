@@ -29,8 +29,6 @@ class Heap(object):
 
     def _heapify(self, index):
         largest = index
-        if len(self.array[index]) == 0:
-            self.array[0] = [-2147483658]
         if 2 * index + 1 <= self.heap_size - 1:
             if comparator_d(self.array[2 * index + 1], self.array[largest]):
                 largest = 2 * index + 1

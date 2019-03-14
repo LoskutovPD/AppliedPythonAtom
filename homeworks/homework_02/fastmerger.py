@@ -23,10 +23,13 @@ class UpdateMaxHeap(MaxHeap):
 
     def _heapify(self, index):
         largest = index
+        if len(self.array[index]) == 0:
+            self.array[index] = [-2147483658]
         if 2 * index + 1 <= self.heap_size - 1:
             if self.array[2 * index + 1][-1] > self.array[largest][-1]:
                 largest = 2 * index + 1
         if 2 * index + 2 <= self.heap_size - 1:
+            print(self.array, self.heap_size, index, largest)
             if self.array[2 * index + 2][-1] > self.array[largest][-1]:
                 largest = 2 * index + 2
         if self.array[largest] != self.array[index]:
