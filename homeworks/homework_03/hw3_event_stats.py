@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
-from collections import deque as dq
+from collections import Counter as dq
 import invert_dict as inv
 
 
