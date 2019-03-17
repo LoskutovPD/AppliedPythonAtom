@@ -1,3 +1,7 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+
 def invert(dct, key, data):
     if isinstance(dct.get(data), (tuple, list, set)):
         dct.get(data).append(key)
