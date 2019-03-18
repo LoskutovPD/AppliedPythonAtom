@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 from collections import Counter as dq
-import invert_dict as inv
+from homeworks.homework_03.invert_dict import inv
 
 
 class TEventStats:
@@ -41,7 +41,7 @@ class TEventStats:
                 tmp1 = x + 1
                 break
         deque = dq(self.users[tmp1:tmp2])
-        x = inv.inv(dict(deque))
+        x = inv(dict(deque))
         if x.get(count) is None:
             return 0
         else:
