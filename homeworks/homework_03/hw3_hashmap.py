@@ -30,6 +30,11 @@ class HashMap:
             # TODO реализовать функцию сравнения
             return self.key == other.key
 
+        def __iter__(self):
+            while self is not None:
+                yield self
+                self = self.next_v
+
     def __init__(self, bucket_num=64):
         '''
         Реализуем метод цепочек
@@ -46,11 +51,12 @@ class HashMap:
         if tmp is None:
             return default_value
         else:
-            while tmp.next_v is not None:
+            while tmp is not None:
                 if tmp.key == key:
                     return tmp.value
+                if tmp.next_v is None:
+                    return default_value
                 tmp = tmp.next_v
-            return default_value
 
     def put(self, key, value):
         # TODO метод put, кладет значение по ключу,
@@ -58,7 +64,7 @@ class HashMap:
         tmp = self.entries[self._get_index(self._get_hash(key))]
         if tmp is None:
             tm = self.Entry(key, value)
-            self.entries[self._get_index(self._get_hash(key))] = tm
+            self.entries[hash(key) % self.buckets] = tm
             self.len += 1
             return
         while tmp is not None:
@@ -125,10 +131,4 @@ class HashMap:
 
     def __contains__(self, item):
         # TODO Метод проверяющий есть ли объект (через in)
-        _hash = self._get_index(self._get_hash(item.key))
-        tmp = self.entries[_hash]
-        while tmp.next_v is not None:
-            if tmp == item:
-                return True
-            tmp = tmp.next_v
-        return tmp == item
+        return item in self.keys()

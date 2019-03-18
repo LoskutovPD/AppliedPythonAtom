@@ -9,6 +9,8 @@ def revert_linked_list(head):
     :return: new_head: LLNode
     """
     # TODO: реализовать функцию
+    if head is None:
+        return None
     return revert(head.next_node, head)
 
 
