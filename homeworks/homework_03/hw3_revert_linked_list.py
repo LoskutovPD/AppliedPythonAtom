@@ -11,7 +11,7 @@ def revert_linked_list(head):
     # TODO: реализовать функцию
     if head is None:
         return None
-    return revert(head.next_node, head)
+    return revert(head)
 
 
 def revert(next_v, prev=None):
