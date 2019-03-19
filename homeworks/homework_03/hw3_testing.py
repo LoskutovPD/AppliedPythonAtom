@@ -63,18 +63,18 @@ class MockOrdinaryFileWorker(OrdinaryFileWorker):
         super(MockOrdinaryFileWorker, self).__init__(None, None)
         try:
             os.mkdir("./tmpf")
-        except FileExistsError :
+        except FileExistsError:
             pass
 
     def transfer_to_local(self, filename):
-        with open("./test_dir/" + filename + ".tmp", "r") as f1:
+        with open("./homeworks/homework_03/test_dir/" + filename + ".tmp", "r") as f1:
             with open("./tmpf/" + filename, "w") as f2:
                 f2.write(f1.read())
                 f2.close()
             f1.close()
 
     def transfer_to_remote(self, filename):
-        with open("./test_dir/" + filename, "r") as f1:
+        with open("./homeworks/homework_03/test_dir/" + filename, "r") as f1:
             with open("./tmpf/" + filename + ".tmp", "w") as f2:
                 f2.write(f1.read())
                 f2.close()
@@ -85,6 +85,7 @@ class MockOrdinaryFileWorker(OrdinaryFileWorker):
         super(MockOrdinaryFileWorker, self).__del__()
 
 class LLNode:
+
     def __init__(self, value, next_node):
         """
         Entity (or node) for doubly linked list
