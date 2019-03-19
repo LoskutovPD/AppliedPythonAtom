@@ -4,29 +4,35 @@
 from homeworks.homework_03.hw3_hashmap import HashMap
 
 
-class HashSet:
+class HashSet(HashMap):
+    class Entry(HashMap.Entry):
+        def __init__(self, key):
+            self.key = key
+            self.next_v = None
 
     def __init__(self):
-        # TODO Сделать правильно =)
-        raise NotImplementedError
+        super(HashSet, self).__init__()
 
     def get(self, key, default_value=None):
-        # TODO достаточно переопределить данный метод
-        raise NotImplementedError
+        tmp = self.entries[hash(key) % self.buckets]
+        if tmp is None:
+            return default_value
+        else:
+            while tmp is not None:
+                if tmp.key == key:
+                    return tmp.key
+                if tmp.next_v is None:
+                    return default_value
+                tmp = tmp.next_v
 
-    def put(self, key, value):
-        # TODO метод put, нужно переопределить данный метод
-        raise NotImplementedError
-
-    def __len__(self):
-        # TODO Возвращает количество Entry в массиве
-        raise NotImplementedError
+    def put(self, key):
+        return key in self
 
     def values(self):
         # TODO возвращать итератор значений
-        raise NotImplementedError
+        return self.keys()
 
     def intersect(self, another_hashset):
         # TODO метод, возвращающий новый HashSet
         #  элементы - пересечение текущего и другого
-        raise NotImplementedError
+        return [key for key in self.keys() if key in another_hashset.keys()]
