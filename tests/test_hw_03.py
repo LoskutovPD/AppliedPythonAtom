@@ -206,7 +206,7 @@ def test_hashset_05():
     assert len(hashset_3) == len(entries)
 
 
-def test_hashset_06():
+def test_hashset_05():
     try:
         hashset = HashSet()
     except NotImplementedError:
@@ -221,7 +221,7 @@ def test_hashset_06():
     hashset_3 = hashset.intersect(hashset_2)
     assert hashset_3 is not hashset
     assert hashset_3 is not hashset_2
-    assert len(hashset_3) == 0
+    assert len(hashset_3) == len(entries)
 
 
 def test_lrucache_01():
