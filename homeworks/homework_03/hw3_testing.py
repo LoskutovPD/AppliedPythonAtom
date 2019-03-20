@@ -85,8 +85,6 @@ class MockOrdinaryFileWorker(OrdinaryFileWorker):
         super(MockOrdinaryFileWorker, self).__del__()
 
 class LLNode:
-
-
     def __init__(self, value, next_node):
         """
         Entity (or node) for doubly linked list
