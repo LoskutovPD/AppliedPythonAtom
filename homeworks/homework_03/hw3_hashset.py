@@ -13,20 +13,24 @@ class HashSet(HashMap):
     def __init__(self):
         super(HashSet, self).__init__()
 
-    def get(self, key, default_value=None):
-        tmp = self.entries[hash(key) % self.buckets]
-        if tmp is None:
-            return default_value
-        else:
-            while tmp is not None:
-                if tmp.key == key:
-                    return tmp.key
-                if tmp.next_v is None:
-                    return default_value
-                tmp = tmp.next_v
+    def get(self, key):
+        return key in self.keys()
 
     def put(self, key):
-        return key in self
+        tmp = self.entries[self._get_index(self._get_hash(key))]
+        if tmp is None:
+            tm = self.Entry(key)
+            self.entries[hash(key) % self.buckets] = tm
+            self.len += 1
+            return True
+        while tmp is not None:
+            if tmp.key == key:
+                return False
+            if tmp.next_v is None:
+                tmp.next_v = self.Entry(key)
+                self.len += 1
+                return True
+            tmp = tmp.next_v
 
     def values(self):
         # TODO возвращать итератор значений
