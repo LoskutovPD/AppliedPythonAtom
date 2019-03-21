@@ -84,6 +84,7 @@ class MockOrdinaryFileWorker(OrdinaryFileWorker):
         shutil.rmtree("./tmpf", ignore_errors=True)
         super(MockOrdinaryFileWorker, self).__del__()
 
+
 class LLNode:
     '''
         Just dummy doc,
