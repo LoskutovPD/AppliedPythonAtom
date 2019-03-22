@@ -16,6 +16,7 @@ def counter(filename, counts, lock):
         return
     lock.acquire()
     counts[filename.split("/")[-1]] = x
+    counts["total"] += x
     lock.release()
 
 
@@ -32,7 +33,7 @@ def word_count_inference(path_to_dir):
     '''
     lock = threading.Lock()
     tasks = []
-    counts = {}
+    counts = {"total": 0}
     for file in os.listdir(path_to_dir):
         tasks.append(threading.Thread(target=counter, args=(path_to_dir + file,
                                                             counts, lock)))
