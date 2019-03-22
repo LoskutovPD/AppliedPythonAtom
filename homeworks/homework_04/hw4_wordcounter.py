@@ -13,6 +13,7 @@ def counter(filename, counts, lock):
             for line in f:
                 x += len(line.split())
     except:
+        print("Something wrong!")
         return
     lock.acquire()
     counts[filename.split("/")[-1]] = x
