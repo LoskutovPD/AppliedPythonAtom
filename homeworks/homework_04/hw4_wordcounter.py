@@ -2,7 +2,21 @@
 # coding: utf-8
 
 from multiprocessing import Process, Manager
+import threading
 import os
+
+
+def counter(filename, counts, lock):
+    x = 0
+    try:
+        with open(filename, "r", encoding="utf8") as f:
+            for line in f:
+                x += len(line.split())
+    except:
+        return
+    lock.acquire()
+    counts.append(x)
+    lock.release()
 
 
 def word_count_inference(path_to_dir):
@@ -16,4 +30,13 @@ def word_count_inference(path_to_dir):
     :return: словарь, где ключ - имя файла, значение - число слов +
         специальный ключ "total" для суммы слов во всех файлах
     '''
-    raise NotImplementedError
+    lock = threading.Lock()
+    tasks = []
+    counts = []
+    for file in os.listdir(path_to_dir):
+        tasks.append(threading.Thread(target=counter, args=(path_to_dir + file,
+                                                            counts, lock)))
+        tasks[-1].start()
+    for task in tasks:
+        task.join()
+    return sum(counts)
