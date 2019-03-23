@@ -30,7 +30,7 @@ def word_count_inference(path_to_dir):
         специальный ключ "total" для суммы слов во всех файлах
     '''
     pl = Pool()
-    counts = Manager.dict()
+    counts = Manager().dict()
     counts["total"] = 0
     pl.map(counter, os.listdir(path_to_dir))
     pl.close()
