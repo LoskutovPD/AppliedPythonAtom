@@ -36,7 +36,7 @@ def word_count_inference(path_to_dir):
     tasks = []
     counts = {"total": 0}
     for file in os.listdir(path_to_dir):
-        tasks.append(threading.Thread(
+        tasks.append(Process(
             target=counter, args=(path_to_dir + "/" + file, counts, lock)))
         tasks[-1].start()
     for task in tasks:
