@@ -16,7 +16,7 @@ def counter(filename):
     except:
         print("Something wrong!")
         return
-    counts[filename.split("/")] = x
+    counts[filename.split("/")[-1]] = x
 
 
 def word_count_inference(path_to_dir):
