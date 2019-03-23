@@ -32,7 +32,7 @@ def word_count_inference(path_to_dir):
     pl = Pool()
     counts = Manager().dict()
     counts["total"] = 0
-    pl.map(counter, path_to_dir + "/" + os.listdir(path_to_dir))
+    pl.map(counter, [path_to_dir + "/" + x for x in os.listdir(path_to_dir)])
     pl.close()
     pl.join()
     return counts
