@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-from multiprocessing import Process, Manager
-import threading
+from multiprocessing import Process, Manager, Pool
 import os
 
 
-def counter(filename, counts, lock):
+def counter(filename):
     x = 0
     try:
         with open(filename, "r", encoding="utf8") as f:
@@ -15,10 +14,8 @@ def counter(filename, counts, lock):
     except:
         print("Something wrong!")
         return
-    lock.acquire()
-    counts[filename.split("/")[-1]] = x
+    counts[filename.split("/")] = x
     counts["total"] += x
-    lock.release()
 
 
 def word_count_inference(path_to_dir):
@@ -32,13 +29,10 @@ def word_count_inference(path_to_dir):
     :return: словарь, где ключ - имя файла, значение - число слов +
         специальный ключ "total" для суммы слов во всех файлах
     '''
-    lock = threading.Lock()
-    tasks = []
-    counts = {"total": 0}
-    for file in os.listdir(path_to_dir):
-        tasks.append(Process(
-            target=counter, args=(path_to_dir + "/" + file, counts, lock)))
-        tasks[-1].start()
-    for task in tasks:
-        task.join()
+    pl = Pool()
+    counts = Manager.dict()
+    counts["total"] = 0
+    pl.map(counter, os.listdir(path_to_dir))
+    pl.close()
+    pl.join()
     return counts
