@@ -2,7 +2,11 @@
 # coding: utf-8
 
 
+<<<<<<< HEAD
 def groupping_anagramms(words):
+=======
+def groupping_anagramms(list_w):
+>>>>>>> master
     """
     Функция, которая группирует анаграммы.
     Возвращаем массив, где элементом является массив с анаграмами.
@@ -23,4 +27,15 @@ def groupping_anagramms(words):
     :return: list of lists of words
     """
     # TODO: реализовать функцию
+<<<<<<< HEAD
     raise NotImplementedError
+=======
+    final_dict, sets = [], []
+    for x in range(len(list_w)):
+        if set(list_w[x].lower()) in sets:
+            final_dict[sets.index(set(list_w[x].lower()))].append(list_w[x])
+        else:
+            sets.append(set(list_w[x].lower()))
+            final_dict.append([list_w[x]])
+    return final_dict
+>>>>>>> master

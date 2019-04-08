@@ -4,6 +4,8 @@
 from multiprocessing import Process, Manager, Pool
 import os
 
+counts = Manager().dict()
+
 
 def counter(filename):
     x = 0
@@ -14,8 +16,7 @@ def counter(filename):
     except:
         print("Something wrong!")
         return
-    counts[filename.split("/")] = x
-    counts["total"] += x
+    counts[filename.split("/")[-1]] = x
 
 
 def word_count_inference(path_to_dir):
@@ -30,9 +31,8 @@ def word_count_inference(path_to_dir):
         специальный ключ "total" для суммы слов во всех файлах
     '''
     pl = Pool()
-    counts = Manager().dict()
-    counts["total"] = 0
     pl.map(counter, [path_to_dir + "/" + x for x in os.listdir(path_to_dir)])
     pl.close()
     pl.join()
+    counts["total"] = sum(counts.values())
     return counts
