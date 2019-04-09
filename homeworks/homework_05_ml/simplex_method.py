@@ -61,7 +61,7 @@ def pivot(m):
             break
     n = 10**10
     ind = 0
-    for x in range(1, len(m) - 1):
+    for x in range(0, len(m) - 1):
         if n > (m[x, -1] / m[x, ll]):
             n = m[x, -1] / m[x, ll]
             ind = x
