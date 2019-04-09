@@ -59,7 +59,7 @@ def pivot(m):
         if tmp[x] == ll:
             ll = x
             break
-    n = m[0, -1] / m[0, ll]
+    n = 10**10
     ind = 0
     for x in range(1, len(m) - 1):
         if n > (m[x, -1] / m[x, ll]):
