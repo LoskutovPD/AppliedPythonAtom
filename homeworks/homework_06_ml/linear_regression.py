@@ -1,36 +1,53 @@
 #!/usr/bin/env python
 # coding: utf-8
+from metrics import mse, r2_score, mae
+import numpy as np
 
 
 class LinearRegression:
     def __init__(self, lambda_coef=1.0, regulatization=None, alpha=0.5):
-        """
-        :param lambda_coef: constant coef for gradient descent step
-        :param regulatization: regularizarion type ("L1" or "L2") or None
-        :param alpha: regularizarion coefficent
-        """
-        pass
+        self.lambda_coef = lambda_coef
+        self.regulatization = regulatization
+        self.alpha = alpha
+        self.trained = False
+        self.W = np.random.rand(1)
+        self.b = np.random.rand(1)
 
-    def fit(self, X_train, y_train):
-        """
-        Fit model using gradient descent method
-        :param X_train: training data
-        :param y_train: target values for training data
-        :return: None
-        """
-        pass
+    def fit(self, X_train, y_train, iteration=100):
+        if X_train.shape[0] != y_train.shape[0]:
+            raise AssertionError
+        for i in range(iteration):
+            grad = self._grad(X_train.T[0], y_train)
+            self.W -= self.lambda_coef * grad[0]
+            self.b -= self.lambda_coef * grad[1]
+            y_hat = grad[2]
+            mseloss = mse(y_hat, y_train)
+            r2loss = r2_score(y_train, y_hat)
+            maeloss = mae(y_hat, y_train)
+            if i%10 == 0:
+                print(f"Iteration:{i}\nmseloss: {mseloss}, r2loss: {r2loss}, maeloss: {maeloss}")
+        self.trained = True
+
+    def _grad(self, x_train, y_true):
+        y_hat = self.W.T * x_train + self.b
+        if self.regulatization == "L2":
+            tmp = np.linalg.norm(self.W, ord=1) * self.lambda_coef
+        elif self.regulatization == "L1":
+            tmp = np.linalg.norm(self.W) * 2 * self.lambda_coef
+        else:
+            tmp = 0
+        dW = tmp + (-1) * sum((2 * x_train * 
+                (y_true - y_hat).T))/y_true.shape[0]
+        db = (-1) * sum((2 * 
+                (y_true - y_hat).T))/y_true.shape[0]
+        return dW, db, y_hat
 
     def predict(self, X_test):
-        """
-        Predict using model.
-        :param X_test: test data for predict in
-        :return: y_test: predicted values
-        """
-        pass
+        if not self.trained:
+            raise AssertionError
+        return X_test * self.W.T + self.b
 
     def get_weights(self):
-        """
-        Get weights from fitted linear model
-        :return: weights array
-        """
-        pass
+        if not self.trained:
+            raise NotTrainingError
+        print(f"W: {self.W}, b: {self.b}")
