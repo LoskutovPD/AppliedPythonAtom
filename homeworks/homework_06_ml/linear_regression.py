@@ -24,7 +24,7 @@ class LinearRegression:
             mseloss = mse(y_hat, y_train)
             r2loss = r2_score(y_train, y_hat)
             maeloss = mae(y_hat, y_train)
-            if i%10 == 0:
+            if i % 10 == 0:
                 print(f"Iteration:{i}\nmseloss: {mseloss}, r2loss: {r2loss}, maeloss: {maeloss}")
         self.trained = True
 
@@ -36,10 +36,10 @@ class LinearRegression:
             tmp = np.linalg.norm(self.W) * 2 * self.lambda_coef
         else:
             tmp = 0
-        dW = tmp + (-1) * sum((2 * x_train * 
-                (y_true - y_hat).T))/y_true.shape[0]
-        db = (-1) * sum((2 * 
-                (y_true - y_hat).T))/y_true.shape[0]
+        dW = tmp + (-1) * sum((2 * x_train *
+                               (y_true - y_hat).T))/y_true.shape[0]
+        db = (-1) * sum((2 *
+                         (y_true - y_hat).T))/y_true.shape[0]
         return dW, db, y_hat
 
     def predict(self, X_test):

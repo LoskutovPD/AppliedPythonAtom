@@ -8,12 +8,13 @@ import numpy as np
 def mse(y_true, y_hat, derivative=False):
     if y_true.shape != y_hat.shape:
         raise AssertionError
-    return sum((y_true - y_hat)**2 )/ y_true.shape[0]
+    return sum((y_true - y_hat)**2) / y_true.shape[0]
+
 
 def mae(y_true, y_hat):
     if y_true.shape != y_hat.shape:
         raise AssertionError
-    return sum(np.abs(y_true - y_hat) )/ y_true.shape[0]
+    return sum(np.abs(y_true - y_hat)) / y_true.shape[0]
 
 
 def r2_score(y_true, y_hat):
