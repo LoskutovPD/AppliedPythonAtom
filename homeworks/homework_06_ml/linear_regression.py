@@ -13,7 +13,7 @@ class LinearRegression:
         self.W = np.random.rand(1)
         self.b = np.random.rand(1)
 
-    def fit(self, X_train, y_train, iteration=100):
+    def fit(self, X_train, y_train, iteration=100, iter_coef=0.00001):
         if X_train.shape[0] != y_train.shape[0]:
             raise AssertionError
         stop = 0
@@ -25,7 +25,7 @@ class LinearRegression:
             mseloss = mse(y_hat, y_train)
             r2loss = r2_score(y_train, y_hat)
             maeloss = mae(y_hat, y_train)
-            if np.abs(stop - r2loss) < 0.00001:
+            if np.abs(stop - r2loss) < iter_coef:
                 break
             stop = r2loss
             if i % 10 == 0:
