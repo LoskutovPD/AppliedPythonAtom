@@ -7,7 +7,7 @@ import numpy as np
 
 class LogisticRegression:
     def __init__(self, lambda_coef=1.0, regulatization=None,
-                 c=2, n_iter = 100):
+                 c=2, n_iter=100):
         self.lambda_coef = lambda_coef
         self.regul = regulatization
         self.alpha = 1 / c
@@ -30,11 +30,11 @@ class LogisticRegression:
                                        X_train.shape[0])
             self.w -= grad * self.lambda_coef
 
-    def predict(self, X):  #around
+    def predict(self, X):  # around
         assert self.train, 'dummy attempt'
         return np.around(self.predict_proba(X))
 
-    def predict_proba(self, X):  #sigmoid
+    def predict_proba(self, X):  # sigmoid
         assert self.train, 'dummy attempt'
         tpm = -X @ self.w
         return 1 / (1 + np.exp(tpm))
