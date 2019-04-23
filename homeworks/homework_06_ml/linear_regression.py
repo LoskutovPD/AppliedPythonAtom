@@ -16,6 +16,7 @@ class LinearRegression:
     def fit(self, X_train, y_train, iteration=100):
         if X_train.shape[0] != y_train.shape[0]:
             raise AssertionError
+        stop = 0
         for i in range(iteration):
             grad = self._grad(X_train.T[0], y_train)
             self.W -= self.lambda_coef * grad[0]
@@ -24,6 +25,9 @@ class LinearRegression:
             mseloss = mse(y_hat, y_train)
             r2loss = r2_score(y_train, y_hat)
             maeloss = mae(y_hat, y_train)
+            if np.abs(stop - r2loss) < 0.00001
+                break
+            stop = r2loss
             if i % 10 == 0:
                 print(f"Iteration:{i}\nmseloss: {mseloss}, r2loss: {r2loss}, maeloss: {maeloss}")
         self.trained = True
@@ -50,4 +54,4 @@ class LinearRegression:
     def get_weights(self):
         if not self.trained:
             raise NotTrainingError
-        print(f"W: {self.W}, b: {self.b}")
+        return self.W, self.b
