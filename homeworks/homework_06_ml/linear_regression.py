@@ -25,7 +25,7 @@ class LinearRegression:
             mseloss = mse(y_hat, y_train)
             r2loss = r2_score(y_train, y_hat)
             maeloss = mae(y_hat, y_train)
-            if np.abs(stop - r2loss) < 0.00001
+            if np.abs(stop - r2loss) < 0.00001:
                 break
             stop = r2loss
             if i % 10 == 0:
