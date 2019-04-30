@@ -9,7 +9,7 @@ class Tree:
         self.left = Tree(parent=self)
         self.right = Tree(parent=self)
 
-        
+
 class DecisionTreeClassifier:
     def __init__(self, max_depth=None, min_leaf_size=None, max_leaf_number=None, min_inform_criter=None):
         '''
@@ -52,9 +52,9 @@ class DecisionTreeClassifier:
         gini = 1 - np.sum([(prd[t] / N)**2 for t in prd.keys()])
         gini1 = 1 - np.sum([(prd1[t] / N1)**2 for t in prd1.keys()])
         gini2 = 1 - np.sum([(prd2[t] / N2)**2 for t in prd2.keys()])
-        ginis =  N1 * gini1 / N + N2 * gini2 / N
+        ginis = N1 * gini1 / N + N2 * gini2 / N
         return gini - ginis
-        
+
     def fit(self, X, y):
         '''
         Стендартный метод обучения
@@ -63,7 +63,7 @@ class DecisionTreeClassifier:
         :return: None
         '''
         self.tree = fit_tree(X, y)
-            
+
     def fit_tree(self, X, y):
         tree = Tree()
         if y.shape[0] <= self.min_leaf_size:
@@ -86,6 +86,7 @@ class DecisionTreeClassifier:
             tree.left = fit_tree(X[X[:, mem[0]] < mem[1]], y[[y[:, mem[0]] < mem[1]]])
             tree.right = fit_tree(X[X[:, mem[0]] >= mem[1]], y[[y[:, mem[0]] >= mem[1]]])
             return tree
+
     def predict(self, X):
         '''
         Метод для предсказания меток на объектах X
