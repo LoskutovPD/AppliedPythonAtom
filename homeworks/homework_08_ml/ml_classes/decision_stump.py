@@ -33,3 +33,4 @@ class DecisionStumpRegressor:
             else:
                 pred.append(self.y2)
         return pred
+    
