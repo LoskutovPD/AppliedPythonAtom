@@ -1,33 +1,35 @@
 #!/usr/bin/env python
 # coding: utf-8
+import numpy as np
 
 
 class DecisionStumpRegressor:
-    '''
-    Класс, реализующий решающий пень (дерево глубиной 1)
-    для регрессии. Ошибку считаем в смысле MSE
-    '''
-
     def __init__(self):
-        '''
-        Мы должны создать поля, чтобы сохранять наш порог th и ответы для
-        x <= th и x > th
-        '''
-        raise NotImplementedError
+        self.th = None
+        self.yl = None
+        self.yr = None
 
     def fit(self, X, y):
-        '''
-        метод, на котором мы должны подбирать коэффициенты th, y1, y2
-        :param X: массив размера (1, num_objects)
-        :param y: целевая переменная (1, num_objects)
-        :return: None
-        '''
-        raise NotImplementedError
+        indx = np.argsort(X).squeeze()
+        data = X.T[indx].T
+        label = y.T[indx].T
+        self.th = data[0, 1]
+        our_loss = self.loss(label[0, :1]) + self.loss(label[0, 1:])
+        for tmp in range(2, data.shape[1] - 1):
+            if self.loss(label[0, :tmp]) + self.loss(label[0, tmp:]) < our_loss:
+                our_loss = self.loss(label[0, :tmp]) + self.loss(label[0, tmp:])
+                self.th = data[0, tmp]
+        self.y1 = label[0, :self.th].mean()
+        self.y2 = label[0, self.th:].mean()
+
+    def loss(self, y):
+        return ((y - y.mean())**2).sum() / y.shape[0]
 
     def predict(self, X):
-        '''
-        метод, который позволяет делать предсказания для новых объектов
-        :param X: массив размера (1, num_objects)
-        :return: массив, размера (1, num_objects)
-        '''
-        raise NotImplementedError
+        pred = []
+        for tmp in X[0]:
+            if tmp < self.th:
+                pred.append(self.y1)
+            else:
+                pred.append(self.y2)
+        return pred
